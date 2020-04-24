@@ -19,37 +19,23 @@ Assume we are dealing with an environment which could only store integers within
 class Solution {
 public:
     int reverse(int x) {
-        std::string str;
-        int mod, div;
-        int num;
-        long long result;
+        int result = 0;
+        int rem;
+        int intmax, intmin;
         
-        if (x < 0) {
-            num = x*-1;
+        intmax = pow(2,31)-1;
+        intmin = -pow(2,31);
+        
+        while (x != 0) {
+            rem = x%10;
+            x = x/10;
+            if (result > intmax/10 || (result == intmax/10 && rem > 7) ||
+                result < intmin/10 || (result == intmin/10 && rem < -8)) {
+                return 0;
+            }
+            result = result*10 + rem;
         }
-        else {
-            num = x;
-        }
-
-        div = num/10;
-        mod = num%10;
-        str.append(std::to_string(mod));
-        while (div != 0) {
-            mod = div%10;
-            str.append(std::to_string(mod));
-            div = div/10;
-        }
-
-        result = std::stoll(str);
-        if (x < 0) {
-            result *= -1;
-        }
-
-        if ((result > (pow(2,31) - 1)) || (result < -pow(2,31))) {
-            return 0;
-        }
-        else {
-            return (int)result;
-        } 
+        
+        return result; 
     }
 };
