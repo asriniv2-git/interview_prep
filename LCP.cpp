@@ -17,12 +17,17 @@ Note:
 All given inputs are in lowercase letters a-z
 */
 
+/* Solution 1 - Horizontal scanning */
+
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
         int i;
         int pos;
         string str;
+        
+        if (strs.size() == 0) return "";
+        else if (strs.size() == 1) return strs[0];
         
         pos = strs[0].size();
         
@@ -39,5 +44,29 @@ public:
             pos--;
         }
         return "";
+    }
+};
+
+/* Solution 2 - Vertical scanning */
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int i, j;
+        char c;
+        
+        if (strs.size() == 0) return "";
+        else if (strs.size() == 1) return strs[0];
+        
+        for (i = 0; i < strs[0].size(); i++) {
+            c = strs[0][i];
+            for (j = 1; j < strs.size(); j++) {
+                if  ((i >= strs[j].size()) || (c != strs[j][i])) {
+                    return strs[0].substr(0, i);
+                }
+            }
+        }
+        
+        return strs[0];
     }
 };
