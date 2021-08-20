@@ -31,37 +31,19 @@ Output: true
 
 class Solution {
 public:
-    bool isValid(string str) {
+    bool isValid(string s) {
         vector<char> open_bra;
         int i;
         
-        for (i = 0; i < str.size(); i++) {
-            if (str[i] == '(' || str[i] == '{' || str[i] == '[') {
-                open_bra.push_back(str[i]);
+        for (i = 0; i < s.size(); i++) {
+            if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
+                open_bra.push_back(s[i]);
             }
-            else if (str[i] == ')') {
-                if (open_bra.back() == '(') {
-                    open_bra.pop_back();
-                }
-                else {
-                    return false;
-                }
-            }
-            else if (str[i] == '}') {
-                if (open_bra.back() == '{') {
-                    open_bra.pop_back();
-                }
-                else {
-                    return false;
-                }
-            }
-            else if (str[i] == ']') {
-                if (open_bra.back() == '[') {
-                    open_bra.pop_back();
-                }
-                else {
-                    return false;
-                }
+            else if (!open_bra.empty()                         &&
+                     ((s[i] == ')' && open_bra.back() == '(')  ||
+                      (s[i] == '}' && open_bra.back() == '{')  ||
+                      (s[i] == ']' && open_bra.back() == '['))) {
+                open_bra.pop_back();        
             }
             else {
                 return false;
@@ -74,5 +56,6 @@ public:
         else {
             return false;
         }
+        
     }
 };
