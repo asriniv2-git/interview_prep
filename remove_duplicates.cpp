@@ -25,6 +25,10 @@ public:
         int i;
         int j = 1;
         
+        if (nums.empty()) {
+            return 0;
+        }
+        
         for (i = 1; i < nums.size(); i++) {
             if (nums[i] != nums[i-1]) {
                 nums[j] = nums[i];
