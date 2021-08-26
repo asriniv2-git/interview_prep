@@ -21,6 +21,40 @@ Input: [1,3,5,6], 0
 Output: 0
 */
 
+/* O(logn) */
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int first, last;
+        
+        first = 0;
+        last = nums.size()-1;
+        
+        return binarySearch(first, last, nums, target);
+    }
+    
+    int binarySearch(int first, int last, vector<int>& nums, int target) {
+        int mid;
+        
+        if (last < first) {
+            return first;
+        }
+        
+        mid = (first+last)/2;
+        
+        if (target == nums[mid]) {
+            return mid;
+        }
+        else if (target < nums[mid]) {
+            return binarySearch(first, mid-1, nums, target);
+        }
+        else {
+            return binarySearch(mid+1, last, nums, target);
+        }
+    }
+};
+
+/* O(n) */
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
