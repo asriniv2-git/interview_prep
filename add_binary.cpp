@@ -23,27 +23,20 @@ Each string is either "0" or doesn't contain any leading zero.
 class Solution {
 public:
     string addBinary(string a, string b) {
-        int i;
-        int num_a = 0;
-        int num_b = 0;
-        int sum;
+        int i, j, a1, b1, sum;
+        int carry = 0;
         string res;
         
-        for (i = 0; i < a.size(); i++) {
-            num_a = num_a<<1 | (a[i]-48);    
-        }
-        for (i = 0; i < b.size(); i++) {
-            num_b = num_b<<1 | (b[i]-48);    
+        for (i = a.size()-1, j = b.size()-1; i >= 0 || j >= 0 ; i--, j--) {
+            a1 = (i >= 0) ? (a[i] - '0') : 0;
+            b1 = (j >= 0) ? (b[j] - '0') : 0;
+            sum = a1+b1+carry;
+            res.insert(res.begin(), (sum%2)+'0');
+            carry = sum/2;   
         }
         
-        sum = num_a + num_b;
-        
-        if (sum == 0) {
-            res.insert(res.begin(),48);
-        }
-        while (sum != 0) {
-            res.insert(res.begin(), (sum&1)+48);
-            sum = sum>>1;
+        if (carry) {
+            res.insert(res.begin(), '1');
         }
         
         return res;
