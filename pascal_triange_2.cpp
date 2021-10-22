@@ -16,18 +16,21 @@ class Solution {
 public:
     vector<int> getRow(int rowIndex) {
         int i, j;
-        vector<vector<int>> pasTri(rowIndex+1);
+        vector<int> prev;
+        vector<int> curr;
         
-        pasTri[0].push_back(1);
+        prev.push_back(1);
         
         for (i = 1; i <= rowIndex; i++) {
-            pasTri[i].push_back(1);
-            for (j = 0; j < pasTri[i-1].size()-1; j++) {
-                pasTri[i].push_back(pasTri[i-1][j] + pasTri[i-1][j+1]);
+            curr.push_back(1);
+            for (j = 0; j < prev.size()-1; j++) {
+                curr.push_back(prev[j]+prev[j+1]);
             }
-            pasTri[i].push_back(1);
+            curr.push_back(1);
+            prev = curr;
+            curr.clear();
         }
         
-        return pasTri[rowIndex];
+        return prev;
     }
 };
