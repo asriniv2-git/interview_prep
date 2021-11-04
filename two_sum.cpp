@@ -14,12 +14,12 @@ public:
     vector<int> twoSum(vector<int>& nums, int target) {
         int i = 0; 
         int index;
-        std::map<int, int> temp;
+        std::multimap<int, int> temp; // multimap so that 2 same keys can exist without being overwritten
         vector<int> returnArr{0, 0};
         
 
         for (i = 0; i < nums.size(); i++) {
-            temp[nums[i]] = i;
+            temp.insert(make_pair(nums[i], i));
             auto index = temp.find(target - nums[i]);
             if (index != temp.end() && index->second != i) {
                 returnArr[0] = i;
