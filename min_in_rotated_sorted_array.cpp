@@ -57,6 +57,7 @@ public:
         
         mid = (left+right)/2;
         
+        //Check if inflection point
         if (nums[mid] > nums[mid+1]) {
             return nums[mid+1];
         }
@@ -65,6 +66,7 @@ public:
             return nums[mid];
         }
         
+        //Whichever side violates the sorted array rule contains the inflection point
         if (nums[mid] < nums[left]) {
             return helperFindMin(nums, left, mid-1);
         }
