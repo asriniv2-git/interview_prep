@@ -19,7 +19,7 @@ Example 3:
 Input: nums = [7,7,7,7,7,7,7]
 Output: 1 */
 
-// Solution 1 (O(n^2)) - Top Down DP, start with the last element and determine LIS for each backwards using previously determined solution (https://www.youtube.com/watch?v=cjWnW0hdF1Y)
+// Solution 1 (O(n^2)) - Top Down DP - Start with the last element and determine LIS for each backwards using previously determined solution (https://www.youtube.com/watch?v=cjWnW0hdF1Y)
 
 class Solution {
 public:
@@ -38,6 +38,52 @@ public:
         }
         
         return lis;
+    }
+};
+
+// Solution 2 (O(nlogn)) - Binary search - Maintain temp LIS array, iterate through main array and replace smallest number in LIS array which is >= ith element, if all lesser then append (https://www.youtube.com/watch?v=i4NBDE8ZEV8)
+
+class Solution {
+public:
+    int binarySearch(vector<int>& nums, int target) {
+        int l, r, mid;
+        int index = -1;
+        
+        l = 0;
+        r = nums.size()-1;
+        
+        while (l <= r) {
+            mid = (l+r)/2;
+            if (target <= nums[mid]) {
+                index = mid;
+                r = mid-1;
+            }
+            else {
+                l = mid+1;
+            }
+        }
+        
+        return index;
+    }
+    
+    int lengthOfLIS(vector<int>& nums) {
+        int i;
+        vector<int> lis;
+        int index = 0;
+        
+        lis.push_back(nums[0]);
+        
+        for (i = 1; i < nums.size(); i++) {
+            index = binarySearch(lis, nums[i]);
+            if (index == -1) {
+                lis.push_back(nums[i]);
+            }
+            else {
+                lis[index] = nums[i];
+            }
+        }
+        
+        return lis.size();
     }
 };
 
