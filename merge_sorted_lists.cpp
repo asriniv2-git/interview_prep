@@ -12,14 +12,15 @@ Output: 1->1->2->3->4->4
  * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode *tail = NULL;
-        ListNode *head = NULL;
+        ListNode *tail, *head;
         
         if (l1 == NULL) {
             return l2;
@@ -36,30 +37,25 @@ public:
             head = new ListNode(l2->val);
             l2 = l2->next;
         }
-        
         tail = head;
+        
         while (l1 != NULL && l2 != NULL) {
             if (l1->val < l2->val) {
                 tail->next = new ListNode(l1->val);
-                tail = tail->next;
                 l1 = l1->next;
             }
             else {
                 tail->next = new ListNode(l2->val);
-                tail = tail->next;
                 l2 = l2->next;
-            }          
+            }
+            tail = tail->next;
         }
         
-        while (l1 != NULL) {
-            tail->next = new ListNode(l1->val);
-            tail = tail->next;
-            l1 = l1->next;    
+        if (l1 != NULL) {
+            tail->next = l1;
         }
-        while (l2 != NULL) {
-            tail->next = new ListNode(l2->val);
-            tail = tail->next;
-            l2 = l2->next;
+        else {
+            tail->next = l2;
         }
         
         return head;
