@@ -47,7 +47,7 @@ public:
             if (len > maxLength) {
                 maxLength = len;
             }
-            lastSeenIndex[s[i]] = i+1; 
+            lastSeenIndex[s[i]] = i+1; //Set i+1 instead of i to distinguish between 0 index and not being seen
         }
         
         return maxLength;
