@@ -27,44 +27,43 @@ Constraints:
 1 <= s.length <= 1000
 s consist of only digits and English letters.*/
 
+// Hint - Expand from center outwards for each index (diverging double pointer approach)
+
 class Solution {
 public:
     string longestPalindrome(string s) {
-        int i;
-        int len1, len2;
-        int maxLen = 1;
-        int start = 0;
-        int end = 0;
+        int i, l, r;
+        int len, start, end;
+        int maxLen = 0;
         
         for (i = 0; i < s.size(); i++) {
-            len1 = expandAroundCenter(s, i, i);
-            len2 = expandAroundCenter(s, i, i+1);
-            
-            if (len1 > maxLen) {
-                start = i - (len1/2);
-                end = i + (len1/2);
-                maxLen = len1;
+            //detect odd length palindrome
+            for (l = i, r = i; l >= 0 && r < s.size(); l--, r++) {
+                if (s[l] != s[r]) {
+                    break;
+                }
+                len = r - l + 1;  //Each match counts as a palindromic substring
+                if (len > maxLen) {
+                    start = l;
+                    end = r;
+                    maxLen = len;
+                }
             }
             
-            if (len2 > maxLen) {
-                start = i - (len2/2) + 1;
-                end = i + (len2/2);
-                maxLen = len2;
+            //detect even length palindrome
+            for (l = i, r = i+1; l >= 0 && r < s.size(); l--, r++) {
+                if (s[l] != s[r]) {
+                    break;
+                }
+                len = r - l + 1;  //Each match counts as a palindromic substring
+                if (len > maxLen) {
+                    start = l;
+                    end = r;
+                    maxLen = len;
+                }
             }
         }
         
         return s.substr(start, maxLen);
-    }
-    
-    int expandAroundCenter(string s, int left, int right) {
-        int i, j;
-        
-        for (i = left, j = right; i >= 0 && j < s.size(); i--, j++) {
-            if (s[i] != s[j]) {
-                break;
-            }
-        }
-        
-        return j - i - 1;
     }
 };
