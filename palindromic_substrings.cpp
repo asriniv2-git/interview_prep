@@ -46,7 +46,7 @@ public:
                 if (s[l] != s[r]) {
                     break;
                 }
-                res++;
+                res++;  //Each match counts as a palindromic substring
             }
         }
         
