@@ -29,7 +29,7 @@ s consists of lowercase English letters. */
 class Solution {
 public:
     int countSubstrings(string s) {
-        int i, l, r, len;
+        int i, l, r;
         int res = 0;
         
         for (i = 0; i < s.size(); i++) {
