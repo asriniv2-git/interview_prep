@@ -61,7 +61,7 @@ public:
     }
 };
 
-/* Approach 2 - Partial quicksort
+/* Approach 2 (Follow up) - Partial quicksort
    1. Create a hash map with key = element, value = number of occurences
    2. Create an array of the unique keys
    3. If array is sorted, all elements from index (n-k) will give the top k occuring elements
