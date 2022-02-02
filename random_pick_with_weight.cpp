@@ -50,6 +50,8 @@ Constraints:
 1 <= w[i] <= 105
 pickIndex will be called at most 104 times. */
 
+// Explanation - https://www.youtube.com/watch?v=fWS0TCcr-lE&t=9s
+
 class Solution {
     vector<int> range;
     int sum;
