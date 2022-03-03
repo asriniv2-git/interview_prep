@@ -59,3 +59,27 @@ public:
         return res;
     }
 };
+
+//Backup (simpler) solution - For some reason, time limit exceeds in spite of same complexity (O(mxn))
+
+int startRow = 0;
+int startCol = 0;
+int i, j;
+vector<int> res;
+
+while (startRow < mat.size() && startCol < mat[0].size()) {
+    // Upward direction
+    for (i = startRow, j = startCol; i >= 0 && j < mat[0].size(); i--, j++) {
+        res.push_back(mat[i][j]);
+    }
+    startRow = (i >= 0) ? i+2 : 0;
+    startCol = (j < mat[0].size()) ? j : mat[0].size()-1;
+    // Downward direction
+    for (i = startRow, j = startCol; i < mat.size() && j >= 0; i++, j--) {
+        res.push_back(mat[i][j]);
+    }
+    startRow = (i < mat.size()) ? i : mat.size()-1;
+    startCol = (j >= 0) ? j+2 : 0;
+}
+
+return res;
